@@ -1,0 +1,13 @@
+using scope local;
+using namespace std;
+
+bool func: main (int arg1) {
+    if (arg1 == 1) {
+        return true;
+    }
+
+    return false;
+}
+
+println(main(3));  // false
+println(main(1));  // true
