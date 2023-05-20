@@ -1,0 +1,9 @@
+using library math;
+
+using extension test;
+
+using scope local;
+using namespace math;
+
+println(e);  // e is a part of math
+test.test_function();  // outputs "Hello from test!" (see ext/test.cpp)
