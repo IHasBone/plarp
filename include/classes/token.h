@@ -3,9 +3,14 @@
 
 enum token {
     Keyword,
-    Identifier,
+    Variable,
+    Function,
     Operator,
-    Literal
+    String,
+    Integer,
+    Boolean,
+    Punctuation,
+    EndExpr,
 };
 
 #endif  // TOKEN_H
