@@ -3,7 +3,6 @@
 
 #include "../include/lexer/lexer.h"
 #include "../include/parser/parser.h"
-#include "../include/classes/tokenizer_pair.h"
 #include "../include/interpreter/interpreter.h"
 
 

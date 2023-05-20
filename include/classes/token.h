@@ -4,7 +4,8 @@
 enum token {
     Keyword,
     Identifier,
-    Operator
+    Operator,
+    Literal
 };
 
 #endif  // TOKEN_H
