@@ -23,7 +23,7 @@ std::vector<pair> lex(const std::string& source) {
             d = "";
         }
 
-        if ((!std::isalpha(c) || c == '_') && t != "") {
+        if (!std::isalpha(c) && c != '_' && !std::isdigit(c) && t != "") {
             pair p;
             if (t == "true" || t == "false" || t == "null") {
                 p.type = Boolean;
@@ -40,7 +40,11 @@ std::vector<pair> lex(const std::string& source) {
 
         } else if (std::isdigit(c)) {
             // number
-            d.push_back(c);
+            if (t == "") {
+                d.push_back(c);
+            } else {
+                t.push_back(c);
+            }
 
         } else if (std::isspace(c)) {
             // space
