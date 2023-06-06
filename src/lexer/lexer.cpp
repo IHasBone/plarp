@@ -9,41 +9,55 @@ std::vector<pair> lex(const std::string& source) {
     int column = 0;
     int row = 1;
 
-    std::string d = "";
-    std::string t = "";
+    std::string number = "";
+    std::string identifier = "";
+
+    bool functionDeclaration = false;
 
     for(char c : source) {
         column++;
 
-        if (!std::isdigit(c) && d != "") {
-            pair p;
-            p.type = Integer;
-            p.value = d;
-            tokens.push_back(p);
-            d = "";
+        if (!std::isspace(c) && functionDeclaration) {
+            if (c != ':') {
+                throw std::runtime_error("Function declaration has to be proceeded by ':'. Invalid character '" + std::string{c} + "' at " + std::to_string(row) + ":" + std::to_string(column));
+            } else {
+                functionDeclaration = false;
+            }
         }
 
-        if (!std::isalpha(c) && c != '_' && !std::isdigit(c) && t != "") {
+        if (!std::isdigit(c) && number != "") {
             pair p;
-            if (t == "true" || t == "false" || t == "null") {
-                p.type = Boolean;
-                p.value = t;
-            }
-
+            p.type = Integer;
+            p.value = number;
             tokens.push_back(p);
-            t = "";
+            number = "";
+        }
+
+        if (!std::isalpha(c) && c != '_' && !std::isdigit(c) && identifier != "") {
+            pair p;
+            if (identifier == "true" || identifier == "false" || identifier == "null") {
+                p.type = Boolean;
+                p.value = identifier;
+            } else if (identifier == "func") {
+                p.type = Function;
+                p.value = identifier;
+                functionDeclaration = true;
+            }
+            
+            tokens.push_back(p);
+            identifier = "";
         }
 
         if (std::isalpha(c) || c == '_') {
             // identifier or keyword
-            t.push_back(c);
+            identifier.push_back(c);
 
         } else if (std::isdigit(c)) {
             // number
-            if (t == "") {
-                d.push_back(c);
+            if (identifier.empty()) {
+                number.push_back(c);
             } else {
-                t.push_back(c);
+                identifier.push_back(c);
             }
 
         } else if (std::isspace(c)) {
