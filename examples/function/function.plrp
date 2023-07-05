@@ -1,7 +1,7 @@
 using scope local;
 using namespace std;
 
-bool func: main (int arg1) {
+func main (int arg1) -> bool {
     if (arg1 == 1) {
         return true;
     }
